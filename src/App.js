@@ -7,6 +7,7 @@ import Table from "./Table";
 import { prettyPrintStat, sortData} from "./util";
 import LineGraph from "./LineGraph";
 import "leaflet/dist/leaflet.css";
+import logo from "./logo.png";
 
 
 
@@ -84,7 +85,8 @@ function App() {
     <div className="app">
       <div className="app__left">
           <div className="app__header">
-            <h1>COVID 19 Tracker</h1>
+            <img src={logo} alt=""/>
+            
             <FormControl className="app__dropdown">
               <Select variant="outlined"value={country}
                   onChange={onCountryChange}
