@@ -5,18 +5,18 @@ import { Circle, Popup} from "react-leaflet";
 const casesTypeColors = {
     cases: {
         hex: "#CC1034",
-        multiplier: 800,
+        multiplier: 800
     },
 
     recovered: {
         hex: "#7dd71d",
-        multiplier: 1200,
+        multiplier: 1200
 
     },
     
-    deaths: {
+    deaths:{
         hex: "#fb4443",
-        multiplier: 2000,
+        multiplier: 2000
 
     },
 };        
@@ -35,7 +35,10 @@ export const sortData = (data) => {
     return sortedData;
 };
 
-//Draw Circles on the Map Interactive tooltip!
+export const prettyPrintStat = (stat) =>
+stat ? `+${numeral(stat).format("0.0a")}` : "+0";
+
+    //Draw Circles on the Map Interactive tooltip!
 export const showDataOnMap = (data, casesType="cases") => (
     data.map(country => (
         <Circle
@@ -45,7 +48,15 @@ export const showDataOnMap = (data, casesType="cases") => (
           fillColor={casesTypeColors[casesType].hex}
           radius={Math.sqrt(country[casesType]) * casesTypeColors[casesType].multiplier}>
             <Popup>
-                <h1>Im Popup</h1>
+                <div className="info-container">
+                    <div 
+                    className="info-flag"
+                    style={{ backgroundImage: `url(${country.countryInfo.flag})` }} /> 
+                    <div className="info-name">{country.country}</div>
+                    <div className="info-confirmed">Cases: {numeral(country.cases).format("0,0")}</div>
+                    <div className="info-recovered">Recovered: {numeral(country.recovered).format("0,0")}</div>
+                    <div className="info-deaths">Deaths: {numeral(country.deaths).format("0,0")}</div>
+                </div>
             </Popup>
         </Circle>
 
